@@ -78,7 +78,7 @@ export default function LessonPage() {
                       : 'bg-white/5 text-slate-400 border border-white/10 hover:border-white/20'
                   }`}
                 >
-                  {tab === 'theory' ? '📖 Lý thuyết' : tab === 'practice' ? '✏️ Luyện tập' : '📝 Exam Corner'}
+                  {tab === 'theory' ? 'Lý thuyết' : tab === 'practice' ? 'Luyện tập' : 'Exam Corner'}
                 </button>
               ))}
             </div>
@@ -88,7 +88,7 @@ export default function LessonPage() {
               <div className="space-y-6 animate-fade-in">
                 {/* Learning Objectives */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">🎯 Mục tiêu bài học</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Mục tiêu bài học</h2>
                   <ul className="space-y-2">
                     {lesson.content.learningObjectives.map((obj, i) => (
                       <li key={i} className="flex items-start gap-3">
@@ -101,13 +101,13 @@ export default function LessonPage() {
 
                 {/* Explain Like New */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">💡 Giải thích đơn giản</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Giải thích đơn giản</h2>
                   <p className="text-slate-300 leading-relaxed">{lesson.content.explainLikeNew}</p>
                 </Card>
 
                 {/* Theory */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">📚 Lý thuyết</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Lý thuyết</h2>
                   <div className="prose prose-invert max-w-none">
                     <p className="text-slate-300 leading-relaxed whitespace-pre-wrap">{lesson.content.theory}</p>
                   </div>
@@ -115,13 +115,13 @@ export default function LessonPage() {
 
                 {/* Deep Dive */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">🔬 Đi sâu hơn</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Đi sâu hơn</h2>
                   <p className="text-slate-300 leading-relaxed">{lesson.content.deepDive}</p>
                 </Card>
 
                 {/* Real World Examples */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">🌍 Ví dụ thực tế</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Ví dụ thực tế</h2>
                   <ul className="space-y-3">
                     {lesson.content.realWorldExamples.map((ex, i) => (
                       <li key={i} className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
@@ -134,13 +134,13 @@ export default function LessonPage() {
 
                 {/* Visual Summary */}
                 <Card className="p-6 bg-gradient-to-br from-cyan-500/10 to-violet-500/10 border-cyan-500/20">
-                  <h2 className="text-lg font-semibold text-white mb-4">📊 Tóm tắt trực quan</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Tóm tắt trực quan</h2>
                   <p className="text-slate-200 font-medium">{lesson.content.visualSummary}</p>
                 </Card>
 
                 {/* Common Mistakes */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">⚠️ Lỗi thường gặp</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Lỗi thường gặp</h2>
                   <ul className="space-y-3">
                     {lesson.content.commonMistakes.map((mistake, i) => (
                       <li key={i} className="flex items-start gap-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
@@ -153,7 +153,7 @@ export default function LessonPage() {
 
                 {/* 60-Second Summary */}
                 <Card className="p-6 bg-amber-500/10 border-amber-500/20">
-                  <h2 className="text-lg font-semibold text-amber-400 mb-4">⏱️ Tóm tắt 60 giây</h2>
+                  <h2 className="text-lg font-semibold text-amber-400 mb-4">Tóm tắt 60 giây</h2>
                   <p className="text-slate-200">{lesson.content.sixtySecondSummary}</p>
                 </Card>
               </div>
@@ -163,7 +163,7 @@ export default function LessonPage() {
             {activeTab === 'practice' && (
               <div className="space-y-6 animate-fade-in">
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">✏️ Thực hành ngay</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Thực hành ngay</h2>
                   <p className="text-slate-300 mb-4">{lesson.content.practice}</p>
                   <Link href="/labs">
                     <Button variant="primary">
@@ -174,7 +174,7 @@ export default function LessonPage() {
 
                 {/* Quick Check */}
                 <Card className="p-6">
-                  <h2 className="text-lg font-semibold text-white mb-4">📝 Quick Check</h2>
+                  <h2 className="text-lg font-semibold text-white mb-4">Quick Check</h2>
                   <div className="space-y-4">
                     {lesson.content.quickCheck.map((qc, qi) => (
                       <div key={qi} className="p-4 rounded-xl bg-white/5 border border-white/10">
@@ -203,7 +203,7 @@ export default function LessonPage() {
             {activeTab === 'exam' && (
               <div className="space-y-6 animate-fade-in">
                 <Card className="p-6 bg-gradient-to-br from-amber-500/10 to-orange-500/10 border-amber-500/20">
-                  <h2 className="text-lg font-semibold text-amber-400 mb-4">📝 Exam Corner</h2>
+                  <h2 className="text-lg font-semibold text-amber-400 mb-4">Exam Corner</h2>
                   <p className="text-slate-300 leading-relaxed">{lesson.content.examCorner}</p>
                 </Card>
                 <Link href="/exams">
@@ -222,7 +222,7 @@ export default function LessonPage() {
               <h3 className="text-sm font-semibold text-slate-400 mb-4">Bài học tiếp theo</h3>
               <div className="space-y-2">
                 <Link href="#" className="flex items-center gap-3 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                  <span className="text-lg">📖</span>
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-cyan-500/10 text-xs font-bold text-cyan-300">NEXT</span>
                   <span className="text-sm text-white">{lesson.content.nextStep || 'Bài tiếp theo'}</span>
                 </Link>
               </div>
@@ -230,7 +230,7 @@ export default function LessonPage() {
 
             {/* Related Flashcards */}
             <Card className="p-4">
-              <h3 className="text-sm font-semibold text-slate-400 mb-4">📇 Flashcards liên quan</h3>
+              <h3 className="text-sm font-semibold text-slate-400 mb-4">Flashcards liên quan</h3>
               <div className="flex flex-wrap gap-2">
                 {lesson.content.flashcards.map((fcId) => (
                   <span key={fcId} className="px-3 py-1 rounded-full bg-white/5 text-sm text-slate-300">
@@ -245,7 +245,7 @@ export default function LessonPage() {
 
             {/* AI Tutor */}
             <Card className="p-4 bg-gradient-to-br from-violet-500/10 to-purple-500/10 border-violet-500/20">
-              <h3 className="text-sm font-semibold text-violet-400 mb-3">🤖 Cần giúp?</h3>
+              <h3 className="text-sm font-semibold text-violet-400 mb-3">Cần giúp?</h3>
               <p className="text-sm text-slate-300 mb-4">Hỏi AI Tutor nếu có thắc mắc</p>
               <Link href="/ai-tutor">
                 <Button variant="primary" size="sm" className="w-full">

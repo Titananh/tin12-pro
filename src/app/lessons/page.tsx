@@ -1,180 +1,143 @@
 // ==========================================
 // Lessons Page - Tin12 Pro Cánh Diều
-// Lesson listing and detail pages
+// Premium lesson listing with hero header
 // ==========================================
 
 'use client';
 
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Card, Badge } from '@/components/ui';
+import { Badge } from '@/components/ui';
 import { lessons } from '@/content/lessons';
 import { getCourseById } from '@/content/courses';
+
+const IconBook = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+  </svg>
+);
+
+const IconClock = () => (
+  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+const IconTarget = () => (
+  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+const IconArrowRight = () => (
+  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+  </svg>
+);
 
 export default function LessonsPage() {
   return (
     <div className="max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-          Bài học
-        </h1>
-        <p className="text-slate-600 dark:text-slate-300 mt-1">
-          Tất cả bài học theo chương trình Tin học 12 Cánh Diều
-        </p>
+      {/* Hero Header */}
+      <div className="relative mb-10 p-8 bg-gradient-to-br from-blue-600/5 via-violet-600/5 to-transparent rounded-3xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-violet-500/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600">
+              <IconBook />
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">Bài học</h1>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 max-w-xl text-sm sm:text-base">
+            Tất cả bài học theo chương trình Tin học 12 Cánh Diều. Mỗi bài có mục tiêu, lý thuyết và kiểm tra nhanh.
+          </p>
+          <div className="flex items-center gap-4 mt-4 text-sm text-slate-500 dark:text-slate-400">
+            <span className="flex items-center gap-1.5">
+              <IconBook />
+              {lessons.length} bài
+            </span>
+            <span className="flex items-center gap-1.5">
+              <IconClock />
+              {Math.round(lessons.reduce((acc, l) => acc + (l.estimatedMinutes || 0), 0) / 60)} giờ học
+            </span>
+          </div>
+        </div>
       </div>
 
-      {/* Lessons List */}
+      {/* Track Pills */}
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <button className="px-4 py-2 rounded-full bg-blue-600 text-white text-sm font-medium whitespace-nowrap">
+          Tất cả
+        </button>
+        <button className="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+          Nền tảng
+        </button>
+        <button className="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+          Mạng & Internet
+        </button>
+        <button className="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+          Cơ sở dữ liệu
+        </button>
+        <button className="px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium whitespace-nowrap hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+          Lập trình Web
+        </button>
+      </div>
+
+      {/* Lessons Grid */}
       <div className="grid md:grid-cols-2 gap-4">
-        {lessons.map((lesson, index) => (
-          <Link key={lesson.id} href={`/lessons/${lesson.slug}`}>
-            <Card hover className="h-full">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 font-semibold">
-                  {index + 1}
+        {lessons.map((lesson, index) => {
+          const course = getCourseById(lesson.courseId);
+          return (
+            <Link key={lesson.id} href={`/lessons/${lesson.slug}`}>
+              <div className="group h-full bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 hover:shadow-lg hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-200">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 font-bold text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    {index + 1}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                      <h3 className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {lesson.title}
+                      </h3>
+                      <Badge
+                        size="sm"
+                        variant={
+                          lesson.difficulty === 'easy' ? 'emerald' :
+                          lesson.difficulty === 'medium' ? 'amber' : 'red'
+                        }
+                      >
+                        {lesson.difficulty === 'easy' ? 'Dễ' : lesson.difficulty === 'medium' ? 'TB' : 'Khó'}
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-3 leading-relaxed">
+                      {lesson.description}
+                    </p>
+                    <div className="flex items-center gap-4 text-xs text-slate-400 dark:text-slate-500">
+                      <span className="flex items-center gap-1">
+                        <IconClock />
+                        {lesson.estimatedMinutes} phút
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <IconTarget />
+                        {lesson.content?.learningObjectives?.length || 0} mục tiêu
+                      </span>
+                      {course && (
+                        <span className="hidden sm:inline text-slate-500 dark:text-slate-400">
+                          {course.title}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-medium text-slate-900 dark:text-white truncate">
-                      {lesson.title}
-                    </h3>
-                    <Badge size="sm" variant={
-                      lesson.difficulty === 'easy' ? 'emerald' :
-                      lesson.difficulty === 'medium' ? 'amber' : 'red'
-                    }>
-                      {lesson.difficulty === 'easy' ? 'Dễ' : lesson.difficulty === 'medium' ? 'TB' : 'Khó'}
-                    </Badge>
-                  </div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-1">
-                    {lesson.description}
-                  </p>
-                  <div className="flex items-center gap-4 mt-2 text-xs text-slate-400 dark:text-slate-500">
-                    <span>{lesson.estimatedMinutes} phút</span>
-                    <span>{lesson.content.learningObjectives.length} mục tiêu</span>
-                  </div>
+                <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-700/50">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:gap-2 transition-all">
+                    Học bài <IconArrowRight />
+                  </span>
                 </div>
               </div>
-            </Card>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
-    </div>
-  );
-}
-
-export function LessonDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
-  const lesson = lessons.find(l => l.slug === slug);
-  
-  if (!lesson) {
-    return (
-      <div className="max-w-4xl mx-auto text-center py-12">
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-          Không tìm thấy bài học
-        </h1>
-        <Link href="/lessons" className="text-blue-600 hover:text-blue-700">
-          ← Quay lại danh sách bài học
-        </Link>
-      </div>
-    );
-  }
-
-  const course = getCourseById(lesson.courseId);
-
-  return (
-    <div className="max-w-4xl mx-auto">
-      {/* Header */}
-      <Link href="/lessons" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 mb-6">
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        Tất cả bài học
-      </Link>
-
-      <Card className="mb-6">
-        <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-2">
-          <span>{course?.title}</span>
-          <span>•</span>
-          <Badge size="sm" variant={
-            lesson.difficulty === 'easy' ? 'emerald' :
-            lesson.difficulty === 'medium' ? 'amber' : 'red'
-          }>
-            {lesson.difficulty}
-          </Badge>
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-          {lesson.title}
-        </h1>
-        <p className="text-slate-600 dark:text-slate-300">
-          {lesson.description}
-        </p>
-      </Card>
-
-      {/* Learning Objectives */}
-      <Card className="mb-6">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-          Mục tiêu học tập
-        </h2>
-        <ul className="space-y-2">
-          {lesson.content.learningObjectives.map((obj, index) => (
-            <li key={index} className="flex items-start gap-3">
-              <svg className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              <span className="text-slate-700 dark:text-slate-200">{obj}</span>
-            </li>
-          ))}
-        </ul>
-      </Card>
-
-      {/* Main Content */}
-      <Card className="mb-6">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-          Lý thuyết
-        </h2>
-        <div className="prose dark:prose-invert max-w-none">
-          <p>{lesson.content.theory}</p>
-        </div>
-      </Card>
-
-      {/* Quick Check */}
-      <Card className="mb-6">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-          Kiểm tra nhanh
-        </h2>
-        <div className="space-y-4">
-          {lesson.content.quickCheck.map((qc, index) => (
-            <div key={index} className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-              <p className="font-medium text-slate-900 dark:text-white mb-3">
-                {index + 1}. {qc.question}
-              </p>
-              {qc.options && (
-                <div className="space-y-2">
-                  {qc.options.map((opt, optIdx) => (
-                    <div key={optIdx} className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-sm">
-                        {String.fromCharCode(65 + optIdx)}
-                      </span>
-                      <span className="text-slate-700 dark:text-slate-200">{opt}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </Card>
-
-      {/* 60-Second Summary */}
-      <Card className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800">
-        <h2 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-3">
-          📝 Tóm tắt 60 giây
-        </h2>
-        <p className="text-blue-800 dark:text-blue-200">
-          {lesson.content.sixtySecondSummary}
-        </p>
-      </Card>
     </div>
   );
 }

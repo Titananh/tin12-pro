@@ -60,7 +60,7 @@ export function saveCourse(course: Partial<Course>): Course {
     slug: course.slug || course.title?.toLowerCase().replace(/\s+/g, '-') || '',
     title: course.title || 'Untitled Course',
     description: course.description || '',
-    icon: course.icon || '📚',
+    icon: course.icon || 'BOOK',
     track: course.track || 'general',
     difficulty: course.difficulty || 'medium',
     modules: course.modules || [],

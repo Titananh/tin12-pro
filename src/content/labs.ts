@@ -854,22 +854,22 @@ export const labs: Lab[] = [
             <h2>Kỹ năng</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <div class="skill-icon">🌐</div>
+                    <div class="skill-icon">WEB</div>
                     <h3>HTML/CSS</h3>
                     <p>Xây dựng giao diện web</p>
                 </div>
                 <div class="skill-card">
-                    <div class="skill-icon">🐍</div>
+                    <div class="skill-icon">PY</div>
                     <h3>Python</h3>
                     <p>Lập trình cơ bản & Data</p>
                 </div>
                 <div class="skill-card">
-                    <div class="skill-icon">🤖</div>
+                    <div class="skill-icon">AI</div>
                     <h3>AI Basics</h3>
                     <p>Machine Learning cơ bản</p>
                 </div>
                 <div class="skill-card">
-                    <div class="skill-icon">📊</div>
+                    <div class="skill-icon">DATA</div>
                     <h3>Data Analysis</h3>
                     <p>Phân tích dữ liệu</p>
                 </div>
@@ -881,7 +881,7 @@ export const labs: Lab[] = [
         <h2>Dự án của tôi</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <div class="project-image">📝</div>
+                <div class="project-image">WEB</div>
                 <div class="project-content">
                     <h3>Website cá nhân</h3>
                     <p>Trang web giới thiệu bản thân sử dụng HTML, CSS</p>
@@ -892,7 +892,7 @@ export const labs: Lab[] = [
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image">📊</div>
+                <div class="project-image">DATA</div>
                 <div class="project-content">
                     <h3>Phân tích điểm thi</h3>
                     <p>Dự án phân tích điểm thi với Google Sheets</p>
@@ -903,7 +903,7 @@ export const labs: Lab[] = [
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image">🎮</div>
+                <div class="project-image">GAME</div>
                 <div class="project-content">
                     <h3>Game đơn giản</h3>
                     <p>Trò chơi đoán số với Python</p>

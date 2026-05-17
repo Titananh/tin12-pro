@@ -1,5 +1,5 @@
 // ==========================================
-// Pricing Page - Tin12 Pro Cánh Diều
+// Pricing Page - Tin12 Pro Canh Diep
 // Free/Pro/Premium tier comparison with mock data
 // ==========================================
 
@@ -10,6 +10,32 @@ import Link from 'next/link';
 import { Card, Badge, Button } from '@/components/ui';
 import { mockUser } from '@/content/demo';
 
+// ============ ICONS (inline SVG) ============
+const IconCheck = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+  </svg>
+);
+
+const IconX = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
+
+const IconChevronDown = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+  </svg>
+);
+
+const IconTag = () => (
+  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c1.172 1.172 3.072 1.172 4.243 0 1.172-1.172 1.172-3.072 0-4.243L12.73 4.99a2.25 2.25 0 00-1.591-.659H5.25zM6.75 7.5l3 3M12 7.5l-3 3m3 0l3 3" />
+  </svg>
+);
+
+// ============ TYPES ============
 type PlanTier = 'free' | 'pro' | 'premium';
 
 interface PlanFeature {
@@ -25,7 +51,6 @@ interface PricingPlan {
   period: string;
   description: string;
   color: string;
-  icon: string;
   badge?: string;
   features: PlanFeature[];
   cta: string;
@@ -35,91 +60,88 @@ interface PricingPlan {
 const plans: PricingPlan[] = [
   {
     id: 'free',
-    name: 'Miễn phí',
+    name: 'Free',
     price: 0,
-    period: 'vĩnh viễn',
-    description: 'Dành cho học sinh bắt đầu học tập',
+    period: 'forever',
+    description: 'For students starting their learning journey',
     color: 'slate',
-    icon: '🌱',
     features: [
-      { text: '5 bài học đầu tiên', included: true },
-      { text: 'Quiz thực hành', included: true },
+      { text: 'First 5 lessons', included: true },
+      { text: 'Practice quizzes', included: true },
       { text: '50 flashcards', included: true },
-      { text: '1 đề thi thử', included: true },
-      { text: 'AI Tutor cơ bản', included: true },
-      { text: 'Bảng kiến thức', included: true },
-      { text: 'Lab thực hành', included: false, note: 'Chỉ xem demo' },
-      { text: 'Đồng bộ đa thiết bị', included: false },
-      { text: 'Báo cáo học tập chi tiết', included: false },
-      { text: 'Hỗ trợ ưu tiên', included: false },
+      { text: '1 practice exam', included: true },
+      { text: 'Basic AI Tutor', included: true },
+      { text: 'Knowledge board', included: true },
+      { text: 'Lab practice', included: false, note: 'Demo only' },
+      { text: 'Multi-device sync', included: false },
+      { text: 'Detailed progress reports', included: false },
+      { text: 'Priority support', included: false },
     ],
-    cta: 'Bắt đầu miễn phí',
+    cta: 'Start Free',
   },
   {
     id: 'pro',
     name: 'Pro',
     price: 99000,
-    period: '/tháng',
-    description: 'Cho học sinh nghiêm túc muốn học hiệu quả',
+    period: '/month',
+    description: 'For serious students who want effective learning',
     color: 'blue',
-    icon: '🚀',
-    badge: 'Phổ biến',
+    badge: 'Most Popular',
     popular: true,
     features: [
-      { text: 'Tất cả bài học (20+)', included: true },
-      { text: 'Quiz không giới hạn', included: true },
+      { text: 'All lessons (20+)', included: true },
+      { text: 'Unlimited quizzes', included: true },
       { text: '200+ flashcards', included: true },
-      { text: '10 đề thi thử', included: true },
-      { text: 'AI Tutor nâng cao', included: true },
-      { text: 'Bảng kiến thức đầy đủ', included: true },
-      { text: 'Tất cả Lab thực hành', included: true },
-      { text: 'Đồng bộ đa thiết bị', included: true },
-      { text: 'Báo cáo học tập chi tiết', included: true },
-      { text: 'Hỗ trợ qua chat', included: false },
+      { text: '10 practice exams', included: true },
+      { text: 'Advanced AI Tutor', included: true },
+      { text: 'Full knowledge board', included: true },
+      { text: 'All lab exercises', included: true },
+      { text: 'Multi-device sync', included: true },
+      { text: 'Detailed progress reports', included: true },
+      { text: 'Chat support', included: false },
     ],
-    cta: 'Nâng cấp lên Pro',
+    cta: 'Upgrade to Pro',
   },
   {
     id: 'premium',
     name: 'Premium',
     price: 199000,
-    period: '/tháng',
-    description: 'Gói đầy đủ nhất cho học sinh thi THPT',
+    period: '/month',
+    description: 'Full package for THPT exam preparation',
     color: 'violet',
-    icon: '💎',
-    badge: 'Đề xuất cho thi THPT',
+    badge: 'Recommended for THPT',
     features: [
-      { text: 'Tất cả bài học (20+)', included: true },
-      { text: 'Quiz không giới hạn', included: true },
+      { text: 'All lessons (20+)', included: true },
+      { text: 'Unlimited quizzes', included: true },
       { text: '500+ flashcards', included: true },
-      { text: '20 đề thi thử + đề AI', included: true },
-      { text: 'AI Tutor với LLM thật', included: true },
-      { text: 'Bảng kiến thức + ôn tập', included: true },
-      { text: 'Tất cả Lab + đánh giá', included: true },
-      { text: 'Đồng bộ đa thiết bị', included: true },
-      { text: 'Báo cáo học tập nâng cao', included: true },
-      { text: 'Hỗ trợ ưu tiên 24/7', included: true },
+      { text: '20+ exams + AI-generated', included: true },
+      { text: 'AI Tutor with Real LLM', included: true },
+      { text: 'Knowledge board + review', included: true },
+      { text: 'All labs + evaluation', included: true },
+      { text: 'Multi-device sync', included: true },
+      { text: 'Advanced progress reports', included: true },
+      { text: '24/7 Priority support', included: true },
     ],
-    cta: 'Chọn Premium',
+    cta: 'Choose Premium',
   },
 ];
 
 const faqs = [
   {
-    q: 'Tôi có thể đổi gói không?',
-    a: 'Có, bạn có thể nâng cấp hoặc hạ cấp bất kỳ lúc nào. Phí sẽ được tính theo tỷ lệ.',
+    q: 'Can I change plans?',
+    a: 'Yes, you can upgrade or downgrade anytime. Fees will be calculated pro-rata.',
   },
   {
-    q: 'Có dùng thử không?',
-    a: 'Gói Free luôn có sẵn. Gói Pro/Premium có thể dùng thử 7 ngày miễn phí.',
+    q: 'Is there a trial period?',
+    a: 'Free plan is always available. Pro/Premium can be tried free for 7 days.',
   },
   {
-    q: 'Thanh toán như thế nào?',
-    a: 'Chúng tôi hỗ trợ VNPay, MoMo, và thẻ Visa/Mastercard.',
+    q: 'How do I pay?',
+    a: 'We support VNPay, MoMo, and Visa/Mastercard.',
   },
   {
-    q: 'Hoàn tiền có được không?',
-    a: 'Có, hoàn tiền 100% trong 7 ngày đầu nếu không hài lòng.',
+    q: 'Can I get a refund?',
+    a: 'Yes, 100% refund within 7 days if not satisfied.',
   },
 ];
 
@@ -133,25 +155,28 @@ export default function PricingPage() {
   };
 
   const getAnnualPrice = (monthlyPrice: number) => {
-    return Math.round(monthlyPrice * 0.8); // 20% discount
+    return Math.round(monthlyPrice * 0.8);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Hero Section */}
       <section className="relative py-16 sm:py-24 px-4 text-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-600/5 to-violet-600/5 dark:from-blue-600/10 dark:to-violet-600/10" />
         <div className="relative max-w-4xl mx-auto">
-          <Badge variant="blue" className="mb-4">💰 Bảng giá</Badge>
+          <Badge variant="blue" className="mb-4">
+            <IconTag />
+            Pricing
+          </Badge>
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Chọn gói học tập phù hợp
+            Choose Your Learning Plan
           </h1>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
-            Từ miễn phí đến premium - tất cả đều giúp bạn học Tin học 12 hiệu quả
+            From free to premium - all help you learn Informatics 12 effectively
           </p>
 
           {/* Billing Toggle */}
-          <div className="inline-flex items-center gap-3 p-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mb-8">
+          <div className="inline-flex items-center gap-3 p-1.5 bg-slate-200 dark:bg-slate-800 rounded-full mb-8">
             <button
               onClick={() => setBillingCycle('monthly')}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
@@ -160,7 +185,7 @@ export default function PricingPage() {
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Theo tháng
+              Monthly
             </button>
             <button
               onClick={() => setBillingCycle('yearly')}
@@ -170,7 +195,7 @@ export default function PricingPage() {
                   : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Theo năm
+              Yearly
               <Badge variant="emerald" size="sm" className="-mr-1">-20%</Badge>
             </button>
           </div>
@@ -185,13 +210,13 @@ export default function PricingPage() {
               ? billingCycle === 'yearly' ? getAnnualPrice(plan.price) : plan.price
               : plan.price;
             const period = billingCycle === 'yearly' && typeof plan.price === 'number' && plan.price > 0
-              ? '/tháng (theo năm)'
+              ? '/month (yearly)'
               : plan.period;
 
             return (
               <Card
                 key={plan.id}
-                className={`relative p-6 lg:p-8 ${
+                className={`relative p-6 lg:p-8 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 ${
                   plan.popular
                     ? 'ring-2 ring-blue-500 dark:ring-blue-400 shadow-xl shadow-blue-500/10'
                     : ''
@@ -208,7 +233,19 @@ export default function PricingPage() {
 
                 <div className="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-4xl">{plan.icon}</span>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                      plan.id === 'free' ? 'bg-slate-100 dark:bg-slate-700' :
+                      plan.id === 'pro' ? 'bg-blue-100 dark:bg-blue-900/30' :
+                      'bg-violet-100 dark:bg-violet-900/30'
+                    }`}>
+                      <span className={`text-xl font-bold ${
+                        plan.id === 'free' ? 'text-slate-600 dark:text-slate-300' :
+                        plan.id === 'pro' ? 'text-blue-600 dark:text-blue-400' :
+                        'text-violet-600 dark:text-violet-400'
+                      }`}>
+                        {plan.name.charAt(0)}
+                      </span>
+                    </div>
                     <div>
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white">{plan.name}</h3>
                     </div>
@@ -224,7 +261,7 @@ export default function PricingPage() {
                   </div>
                   {billingCycle === 'yearly' && typeof plan.price === 'number' && plan.price > 0 && (
                     <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">
-                      Tiết kiệm 20% so với thanh toán tháng
+                      Save 20% vs monthly
                     </p>
                   )}
                 </div>
@@ -242,13 +279,13 @@ export default function PricingPage() {
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-3">
                         {feature.included ? (
-                          <svg className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
+                          <span className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-emerald-600 dark:text-emerald-400"><IconCheck /></span>
+                          </span>
                         ) : (
-                          <svg className="w-5 h-5 text-slate-300 dark:text-slate-600 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                          </svg>
+                          <span className="w-5 h-5 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <span className="text-slate-400"><IconX /></span>
+                          </span>
                         )}
                         <span className={`text-sm ${feature.included ? 'text-slate-700 dark:text-slate-300' : 'text-slate-400'}`}>
                           {feature.text}
@@ -278,17 +315,17 @@ export default function PricingPage() {
                 <div>
                   <p className="font-semibold text-slate-900 dark:text-white">{user.name}</p>
                   <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Gói hiện tại: <span className="text-blue-600 dark:text-blue-400 font-medium">Free</span>
+                    Current plan: <span className="text-blue-600 dark:text-blue-400 font-medium">Free</span>
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-right mr-4">
-                  <p className="text-sm text-slate-500 dark:text-slate-400">Đã đạt</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">Earned</p>
                   <p className="font-bold text-cyan-600 dark:text-cyan-400">{user.xp.toLocaleString()} XP</p>
                 </div>
                 <Button variant="secondary" size="sm">
-                  Nâng cấp
+                  Upgrade
                 </Button>
               </div>
             </div>
@@ -298,15 +335,15 @@ export default function PricingPage() {
 
       {/* Feature Comparison Table */}
       <section className="max-w-5xl mx-auto px-4 pb-16">
-        <Card className="p-6 lg:p-8">
+        <Card className="p-6 lg:p-8 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
-            So sánh chi tiết các gói
+            Detailed Plan Comparison
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-200 dark:border-slate-700">
-                  <th className="text-left py-3 px-4 font-semibold text-slate-900 dark:text-white">Tính năng</th>
+                  <th className="text-left py-3 px-4 font-semibold text-slate-900 dark:text-white">Feature</th>
                   <th className="text-center py-3 px-4 font-semibold text-slate-600 dark:text-slate-400">Free</th>
                   <th className="text-center py-3 px-4 font-semibold text-blue-600 dark:text-blue-400">Pro</th>
                   <th className="text-center py-3 px-4 font-semibold text-violet-600 dark:text-violet-400">Premium</th>
@@ -314,15 +351,15 @@ export default function PricingPage() {
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                 {[
-                  ['Bài học', '5 bài', '20+ bài', '20+ bài'],
-                  ['Quiz', '50 câu', 'Không giới hạn', 'Không giới hạn'],
-                  ['Flashcards', '50 thẻ', '200+ thẻ', '500+ thẻ'],
-                  ['Đề thi thử', '1 đề', '10 đề', '20+ đề'],
-                  ['AI Tutor', 'Cơ bản', 'Nâng cao', 'LLM thật'],
-                  ['Lab thực hành', 'Demo', 'Tất cả', 'Tất cả + đánh giá'],
-                  ['Đồng bộ thiết bị', '✗', '✓', '✓'],
-                  ['Báo cáo chi tiết', '✗', '✓', 'Nâng cao'],
-                  ['Hỗ trợ ưu tiên', '✗', '✗', '24/7'],
+                  ['Lessons', '5 lessons', '20+ lessons', '20+ lessons'],
+                  ['Quizzes', '50 questions', 'Unlimited', 'Unlimited'],
+                  ['Flashcards', '50 cards', '200+ cards', '500+ cards'],
+                  ['Practice Exams', '1 exam', '10 exams', '20+ exams'],
+                  ['AI Tutor', 'Basic', 'Advanced', 'Real LLM'],
+                  ['Lab Exercises', 'Demo', 'All', 'All + Evaluation'],
+                  ['Device Sync', '--', 'Yes', 'Yes'],
+                  ['Detailed Reports', '--', 'Yes', 'Advanced'],
+                  ['Priority Support', '--', '--', '24/7'],
                 ].map((row, i) => (
                   <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
                     <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-200">{row[0]}</td>
@@ -340,22 +377,19 @@ export default function PricingPage() {
       {/* FAQ Section */}
       <section className="max-w-3xl mx-auto px-4 pb-16">
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center">
-          Câu hỏi thường gặp
+          Frequently Asked Questions
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, i) => (
-            <Card key={i} padding="none" className="overflow-hidden">
+            <Card key={i} padding="none" className="overflow-hidden bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
               >
                 <span className="font-semibold text-slate-900 dark:text-white">{faq.q}</span>
-                <svg
-                  className={`w-5 h-5 text-slate-400 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                <span className={`text-slate-400 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}>
+                  <IconChevronDown />
+                </span>
               </button>
               {openFaq === i && (
                 <div className="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400">
@@ -371,20 +405,20 @@ export default function PricingPage() {
       <section className="max-w-4xl mx-auto px-4 pb-24">
         <Card className="p-8 lg:p-12 text-center bg-gradient-to-r from-blue-600 to-violet-600 border-0">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-            Sẵn sàng bắt đầu học?
+            Ready to Start Learning?
           </h2>
           <p className="text-white/80 mb-8 max-w-xl mx-auto">
-            Đăng ký miễn phí ngay hôm nay và bắt đầu hành trình chinh phục Tin học 12
+            Register free today and begin your journey to master Informatics 12
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/onboarding"
               className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-slate-100 transition-colors"
             >
-              Bắt đầu miễn phí
+              Start Free
             </Link>
             <button className="px-8 py-3 bg-white/20 text-white font-semibold rounded-full hover:bg-white/30 transition-colors">
-              Dùng thử Pro 7 ngày
+              Try Pro 7 Days
             </button>
           </div>
         </Card>

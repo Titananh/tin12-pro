@@ -1,5 +1,5 @@
 // ==========================================
-// Settings Page - Tin12 Pro Cánh Diều
+// Settings Page - Tin12 Pro Canh Diep
 // Profile, Security, Notifications, Theme settings
 // ==========================================
 
@@ -9,6 +9,57 @@ import { useState } from 'react';
 import { Card, Badge, Button } from '@/components/ui';
 import { mockUser } from '@/content/demo';
 
+// ============ ICONS (inline SVG) ============
+const IconUser = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+  </svg>
+);
+
+const IconShield = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+  </svg>
+);
+
+const IconBell = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+  </svg>
+);
+
+const IconPalette = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.822M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.25h3l-3 4.5h-3M15 12h3l-3 4.5h-3M6.75 8.25h3l-3 4.5h-3" />
+  </svg>
+);
+
+const IconGear = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h2.086c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v2.086c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.389.966.45 1.45.12l.738-.527c.418-.28.509-1.065.12-1.45l-.774-.773a1.125 1.125 0 00-1.449-.12l-.738.527c-.35.25-.806.272-1.203.107-.397-.165-.71-.505-.781-.929l-.149-.894z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+);
+
+const IconCheck = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+  </svg>
+);
+
+const IconUpload = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+  </svg>
+);
+
+const IconTrash = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a22.05 22.05 0 00-3.592 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+  </svg>
+);
+
+// ============ TYPES ============
 type SettingsTab = 'profile' | 'security' | 'notifications' | 'theme' | 'account';
 
 interface SettingSection {
@@ -19,45 +70,38 @@ interface SettingSection {
 
 const _sections: Record<SettingsTab, SettingSection[]> = {
   profile: [
-    { id: 'avatar', title: 'Ảnh đại diện', description: 'Tải lên ảnh mới hoặc chọn từ thư viện' },
-    { id: 'name', title: 'Họ và tên', description: 'Tên hiển thị trên profile' },
-    { id: 'email', title: 'Email', description: 'Email liên kết với tài khoản' },
-    { id: 'bio', title: 'Giới thiệu bản thân', description: 'Một vài dòng về bạn' },
-    { id: 'class', title: 'Lớp', description: 'Lớp học hiện tại' },
+    { id: 'avatar', title: 'Avatar', description: 'Upload new photo or choose from library' },
+    { id: 'name', title: 'Full Name', description: 'Display name on profile' },
+    { id: 'email', title: 'Email', description: 'Email linked to account' },
+    { id: 'bio', title: 'Bio', description: 'A few lines about you' },
+    { id: 'class', title: 'Class', description: 'Current class' },
   ],
   security: [
-    { id: 'password', title: 'Đổi mật khẩu', description: 'Cập nhật mật khẩu mới' },
-    { id: '2fa', title: 'Xác thực 2 yếu tố', description: 'Bảo vệ tài khoản với 2FA' },
-    { id: 'sessions', title: 'Phiên đăng nhập', description: 'Quản lý các thiết bị đã đăng nhập' },
-    { id: 'devices', title: 'Thiết bị', description: 'Danh sách thiết bị đang hoạt động' },
+    { id: 'password', title: 'Password', description: 'Update new password' },
+    { id: '2fa', title: '2-Factor Auth', description: 'Protect account with 2FA' },
+    { id: 'sessions', title: 'Login Sessions', description: 'Manage logged in devices' },
+    { id: 'devices', title: 'Devices', description: 'List of active devices' },
   ],
   notifications: [
-    { id: 'email-notif', title: 'Email thông báo', description: 'Nhận email về hoạt động học tập' },
-    { id: 'push-notif', title: 'Push notification', description: 'Thông báo trên trình duyệt' },
-    { id: 'reminder', title: 'Nhắc nhở học tập', description: 'Nhắc nhở streak và bài tập' },
-    { id: 'achievements', title: 'Thông báo thành tích', description: 'Thông báo khi đạt huy hiệu mới' },
-    { id: 'weekly', title: 'Báo cáo tuần', description: 'Tổng kết hoạt động hàng tuần' },
+    { id: 'email-notif', title: 'Email Notifications', description: 'Receive emails about learning activity' },
+    { id: 'push-notif', title: 'Push Notifications', description: 'Notifications on browser' },
+    { id: 'reminder', title: 'Learning Reminders', description: 'Streak and assignment reminders' },
+    { id: 'achievements', title: 'Achievement Alerts', description: 'Notify when earning badges' },
+    { id: 'weekly', title: 'Weekly Report', description: 'Weekly activity summary on Sunday' },
   ],
   theme: [
-    { id: 'mode', title: 'Chế độ hiển thị', description: 'Sáng / Tối / Tự động' },
-    { id: 'accent', title: 'Màu chủ đạo', description: 'Màu accent cho giao diện' },
-    { id: 'font', title: 'Cỡ chữ', description: 'Kích thước văn bản' },
-    { id: 'compact', title: 'Chế độ tiết kiệm', description: 'Giao diện compact cho màn hình nhỏ' },
+    { id: 'mode', title: 'Display Mode', description: 'Light / Dark / Auto' },
+    { id: 'accent', title: 'Accent Color', description: 'Accent color for interface' },
+    { id: 'font', title: 'Font Size', description: 'Text size' },
+    { id: 'compact', title: 'Compact Mode', description: 'Compact UI for small screens' },
   ],
   account: [
-    { id: 'plan', title: ' Gói dịch vụ', description: 'Xem và quản lý gói đang sử dụng' },
-    { id: 'billing', title: ' Thanh toán', description: 'Lịch sử và phương thức thanh toán' },
-    { id: 'export', title: 'Xuất dữ liệu', description: 'Tải xuống toàn bộ dữ liệu của bạn' },
-    { id: 'delete', title: 'Xóa tài khoản', description: 'Xóa vĩnh viễn tài khoản và dữ liệu' },
+    { id: 'plan', title: 'Subscription', description: 'View and manage current plan' },
+    { id: 'billing', title: 'Billing', description: 'History and payment methods' },
+    { id: 'export', title: 'Export Data', description: 'Download all your data' },
+    { id: 'delete', title: 'Delete Account', description: 'Permanently delete account and data' },
   ],
 };
-
-const _ThemeOption = ({ color, label }: { color: string; label: string }) => (
-  <button className="flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 transition-colors">
-    <div className={`w-10 h-10 rounded-full bg-${color}-500`} style={{ backgroundColor: color }} />
-    <span className="text-xs text-slate-600 dark:text-slate-400">{label}</span>
-  </button>
-);
 
 const NotificationToggle = ({ label, description, enabled, onChange }: {
   label: string;
@@ -105,12 +149,12 @@ export default function SettingsPage() {
     compact: false,
   });
 
-  const tabs: { id: SettingsTab; label: string; icon: string }[] = [
-    { id: 'profile', label: 'Hồ sơ', icon: '👤' },
-    { id: 'security', label: 'Bảo mật', icon: '🔒' },
-    { id: 'notifications', label: 'Thông báo', icon: '🔔' },
-    { id: 'theme', label: 'Giao diện', icon: '🎨' },
-    { id: 'account', label: 'Tài khoản', icon: '⚙️' },
+  const tabs: { id: SettingsTab; label: string; icon: React.ReactNode }[] = [
+    { id: 'profile', label: 'Profile', icon: <IconUser /> },
+    { id: 'security', label: 'Security', icon: <IconShield /> },
+    { id: 'notifications', label: 'Notifications', icon: <IconBell /> },
+    { id: 'theme', label: 'Theme', icon: <IconPalette /> },
+    { id: 'account', label: 'Account', icon: <IconGear /> },
   ];
 
   const handleSave = async () => {
@@ -123,17 +167,20 @@ export default function SettingsPage() {
     <div className="max-w-5xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
-          ⚙️ Cài đặt
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+            <IconGear />
+          </div>
+          Settings
         </h1>
         <p className="text-slate-600 dark:text-slate-400">
-          Quản lý tài khoản và tùy chỉnh trải nghiệm học tập
+          Manage your account and customize your learning experience
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Sidebar Navigation */}
-        <Card className="lg:w-64 p-3 flex-shrink-0" padding="none">
+        <Card className="lg:w-64 p-3 flex-shrink-0 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700" padding="none">
           <nav className="space-y-1">
             {tabs.map(tab => (
               <button
@@ -145,7 +192,7 @@ export default function SettingsPage() {
                     : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <span>{tab.icon}</span>
+                {tab.icon}
                 {tab.label}
               </button>
             ))}
@@ -156,9 +203,10 @@ export default function SettingsPage() {
         <div className="flex-1 min-w-0">
           {/* Profile Tab */}
           {activeTab === 'profile' && (
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                👤 Thông tin hồ sơ
+            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <IconUser />
+                Profile Information
               </h2>
 
               {/* Avatar Section */}
@@ -170,8 +218,13 @@ export default function SettingsPage() {
                   <p className="font-semibold text-slate-900 dark:text-white mb-1">{user.name}</p>
                   <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">{user.email}</p>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm">Tải ảnh mới</Button>
-                    <Button variant="ghost" size="sm">Xóa ảnh</Button>
+                    <Button variant="outline" size="sm">
+                      <IconUpload />
+                      Upload Photo
+                    </Button>
+                    <Button variant="ghost" size="sm">
+                      Remove
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -181,7 +234,7 @@ export default function SettingsPage() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                      Họ và tên
+                      Full Name
                     </label>
                     <input
                       type="text"
@@ -203,7 +256,7 @@ export default function SettingsPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Lớp
+                    Class
                   </label>
                   <select className="w-full h-11 px-4 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option>12A1</option>
@@ -215,18 +268,18 @@ export default function SettingsPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    Giới thiệu bản thân
+                    Bio
                   </label>
                   <textarea
                     rows={3}
-                    placeholder="Một vài dòng về bạn..."
+                    placeholder="A few lines about you..."
                     className="w-full px-4 py-3 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                   />
                 </div>
 
                 <div className="pt-4">
                   <Button onClick={handleSave} isLoading={saving}>
-                    Lưu thay đổi
+                    Save Changes
                   </Button>
                 </div>
               </div>
@@ -235,44 +288,45 @@ export default function SettingsPage() {
 
           {/* Security Tab */}
           {activeTab === 'security' && (
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                🔒 Bảo mật tài khoản
+            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <IconShield />
+                Account Security
               </h2>
 
               <div className="space-y-6">
                 <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Mật khẩu</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Cập nhật lần cuối: 15/05/2026</p>
+                    <p className="font-medium text-slate-900 dark:text-white">Password</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Last updated: 15/05/2026</p>
                   </div>
-                  <Button variant="outline" size="sm">Đổi mật khẩu</Button>
+                  <Button variant="outline" size="sm">Change Password</Button>
                 </div>
 
                 <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Xác thực 2 yếu tố</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Chưa bật - Tăng cường bảo mật</p>
+                    <p className="font-medium text-slate-900 dark:text-white">2-Factor Authentication</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Not enabled - Enhance security</p>
                   </div>
-                  <Badge variant="amber" size="sm">Chưa kích hoạt</Badge>
+                  <Badge variant="amber" size="sm">Not Active</Badge>
                 </div>
 
                 <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
                   <div className="flex items-center justify-between mb-4">
-                    <p className="font-medium text-slate-900 dark:text-white">Phiên đăng nhập</p>
-                    <Button variant="ghost" size="sm">Xem tất cả</Button>
+                    <p className="font-medium text-slate-900 dark:text-white">Login Sessions</p>
+                    <Button variant="ghost" size="sm">View All</Button>
                   </div>
                   <div className="space-y-3">
                     {[
-                      { device: 'Chrome trên Windows', location: 'Hà Nội, VN', time: 'Đang hoạt động', current: true },
-                      { device: 'Safari trên iPhone', location: 'Hà Nội, VN', time: '2 giờ trước', current: false },
+                      { device: 'Chrome on Windows', location: 'Hanoi, VN', time: 'Active now', current: true },
+                      { device: 'Safari on iPhone', location: 'Hanoi, VN', time: '2 hours ago', current: false },
                     ].map((session, i) => (
                       <div key={i} className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-slate-700 last:border-0">
                         <div>
                           <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{session.device}</p>
-                          <p className="text-xs text-slate-500 dark:text-slate-400">{session.location} • {session.time}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400">{session.location} - {session.time}</p>
                         </div>
-                        {session.current && <Badge variant="emerald" size="sm">Hiện tại</Badge>}
+                        {session.current && <Badge variant="emerald" size="sm">Current</Badge>}
                       </div>
                     ))}
                   </div>
@@ -283,39 +337,40 @@ export default function SettingsPage() {
 
           {/* Notifications Tab */}
           {activeTab === 'notifications' && (
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                🔔 Cài đặt thông báo
+            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <IconBell />
+                Notification Settings
               </h2>
 
               <div className="space-y-1">
                 <NotificationToggle
-                  label="Email thông báo"
-                  description="Nhận email về hoạt động học tập"
+                  label="Email Notifications"
+                  description="Receive emails about learning activity"
                   enabled={notifications.email}
                   onChange={(v) => setNotifications(n => ({ ...n, email: v }))}
                 />
                 <NotificationToggle
-                  label="Push notification"
-                  description="Thông báo trên trình duyệt"
+                  label="Push Notifications"
+                  description="Notifications on browser"
                   enabled={notifications.push}
                   onChange={(v) => setNotifications(n => ({ ...n, push: v }))}
                 />
                 <NotificationToggle
-                  label="Nhắc nhở học tập"
-                  description="Nhắc nhở streak và bài tập hàng ngày"
+                  label="Learning Reminders"
+                  description="Streak and daily assignment reminders"
                   enabled={notifications.reminder}
                   onChange={(v) => setNotifications(n => ({ ...n, reminder: v }))}
                 />
                 <NotificationToggle
-                  label="Thông báo thành tích"
-                  description="Thông báo khi đạt huy hiệu hoặc hoàn thành mốc"
+                  label="Achievement Alerts"
+                  description="Notify when earning badges or completing milestones"
                   enabled={notifications.achievements}
                   onChange={(v) => setNotifications(n => ({ ...n, achievements: v }))}
                 />
                 <NotificationToggle
-                  label="Báo cáo tuần"
-                  description="Tổng kết hoạt động hàng tuần vào Chủ Nhật"
+                  label="Weekly Report"
+                  description="Weekly activity summary on Sunday"
                   enabled={notifications.weekly}
                   onChange={(v) => setNotifications(n => ({ ...n, weekly: v }))}
                 />
@@ -323,7 +378,7 @@ export default function SettingsPage() {
 
               <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                 <Button onClick={handleSave} isLoading={saving}>
-                  Lưu thay đổi
+                  Save Changes
                 </Button>
               </div>
             </Card>
@@ -331,22 +386,23 @@ export default function SettingsPage() {
 
           {/* Theme Tab */}
           {activeTab === 'theme' && (
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                🎨 Giao diện
+            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <IconPalette />
+                Appearance
               </h2>
 
               <div className="space-y-8">
                 {/* Display Mode */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                    Chế độ hiển thị
+                    Display Mode
                   </label>
                   <div className="flex gap-3">
                     {[
-                      { id: 'light', label: 'Sáng', icon: '☀️' },
-                      { id: 'dark', label: 'Tối', icon: '🌙' },
-                      { id: 'auto', label: 'Tự động', icon: '⚙️' },
+                      { id: 'light', label: 'Light' },
+                      { id: 'dark', label: 'Dark' },
+                      { id: 'auto', label: 'Auto' },
                     ].map(mode => (
                       <button
                         key={mode.id}
@@ -357,7 +413,6 @@ export default function SettingsPage() {
                             : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-blue-300'
                         }`}
                       >
-                        <span>{mode.icon}</span>
                         <span className="font-medium text-sm">{mode.label}</span>
                       </button>
                     ))}
@@ -367,16 +422,16 @@ export default function SettingsPage() {
                 {/* Accent Color */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                    Màu chủ đạo
+                    Accent Color
                   </label>
                   <div className="flex flex-wrap gap-3">
                     {[
-                      { color: '#2563EB', label: 'Xanh dương' },
-                      { color: '#7C3AED', label: 'Tím' },
+                      { color: '#2563EB', label: 'Blue' },
+                      { color: '#7C3AED', label: 'Purple' },
                       { color: '#06B6D4', label: 'Cyan' },
-                      { color: '#16A34A', label: 'Xanh lá' },
-                      { color: '#F97316', label: 'Cam' },
-                      { color: '#DC2626', label: 'Đỏ' },
+                      { color: '#16A34A', label: 'Green' },
+                      { color: '#F97316', label: 'Orange' },
+                      { color: '#DC2626', label: 'Red' },
                     ].map(c => (
                       <button
                         key={c.color}
@@ -386,9 +441,7 @@ export default function SettingsPage() {
                         title={c.label}
                       >
                         {themeSettings.accent === c.color && (
-                          <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
+                          <span className="text-white"><IconCheck /></span>
                         )}
                       </button>
                     ))}
@@ -398,13 +451,13 @@ export default function SettingsPage() {
                 {/* Font Size */}
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
-                    Cỡ chữ
+                    Font Size
                   </label>
                   <div className="flex gap-3">
                     {[
-                      { id: 'small', label: 'Nhỏ', size: 'text-sm' },
-                      { id: 'medium', label: 'Vừa', size: 'text-base' },
-                      { id: 'large', label: 'Lớn', size: 'text-lg' },
+                      { id: 'small', label: 'Small', size: 'text-sm' },
+                      { id: 'medium', label: 'Medium', size: 'text-base' },
+                      { id: 'large', label: 'Large', size: 'text-lg' },
                     ].map(size => (
                       <button
                         key={size.id}
@@ -424,8 +477,8 @@ export default function SettingsPage() {
                 {/* Compact Mode */}
                 <div className="flex items-center justify-between py-3">
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Chế độ tiết kiệm</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Giao diện compact cho màn hình nhỏ</p>
+                    <p className="font-medium text-slate-900 dark:text-white">Compact Mode</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Compact UI for small screens</p>
                   </div>
                   <button
                     onClick={() => setThemeSettings(s => ({ ...s, compact: !s.compact }))}
@@ -444,7 +497,7 @@ export default function SettingsPage() {
 
               <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
                 <Button onClick={handleSave} isLoading={saving}>
-                  Áp dụng
+                  Apply
                 </Button>
               </div>
             </Card>
@@ -452,9 +505,10 @@ export default function SettingsPage() {
 
           {/* Account Tab */}
           {activeTab === 'account' && (
-            <Card className="p-6">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
-                ⚙️ Quản lý tài khoản
+            <Card className="p-6 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <IconGear />
+                Account Management
               </h2>
 
               <div className="space-y-6">
@@ -462,42 +516,48 @@ export default function SettingsPage() {
                 <div className="p-5 bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-900/20 dark:to-violet-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <p className="font-semibold text-slate-900 dark:text-white">Gói hiện tại: Free</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">Bạn đang sử dụng gói miễn phí</p>
+                      <p className="font-semibold text-slate-900 dark:text-white">Current Plan: Free</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">You are using the free plan</p>
                     </div>
-                    <Badge variant="default">Miễn phí</Badge>
+                    <Badge variant="default">Free</Badge>
                   </div>
                   <Button variant="primary" size="sm" className="mt-3">
-                    Nâng cấp lên Pro
+                    Upgrade to Pro
                   </Button>
                 </div>
 
                 {/* Billing */}
                 <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Phương thức thanh toán</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Chưa có phương thức thanh toán</p>
+                    <p className="font-medium text-slate-900 dark:text-white">Payment Method</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">No payment method added</p>
                   </div>
-                  <Button variant="outline" size="sm">Thêm</Button>
+                  <Button variant="outline" size="sm">Add</Button>
                 </div>
 
                 {/* Export Data */}
                 <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl">
                   <div>
-                    <p className="font-medium text-slate-900 dark:text-white">Xuất dữ liệu</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">Tải xuống toàn bộ dữ liệu của bạn</p>
+                    <p className="font-medium text-slate-900 dark:text-white">Export Data</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Download all your data</p>
                   </div>
-                  <Button variant="outline" size="sm">Xuất</Button>
+                  <Button variant="outline" size="sm">
+                    <IconUpload />
+                    Export
+                  </Button>
                 </div>
 
                 {/* Delete Account */}
                 <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-200 dark:border-red-800">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-semibold text-red-600 dark:text-red-400">Xóa tài khoản</p>
-                      <p className="text-sm text-red-500/80">Xóa vĩnh viễn tài khoản và toàn bộ dữ liệu</p>
+                      <p className="font-semibold text-red-600 dark:text-red-400">Delete Account</p>
+                      <p className="text-sm text-red-500/80">Permanently delete account and all data</p>
                     </div>
-                    <Button variant="danger" size="sm">Xóa</Button>
+                    <Button variant="danger" size="sm">
+                      <IconTrash />
+                      Delete
+                    </Button>
                   </div>
                 </div>
               </div>

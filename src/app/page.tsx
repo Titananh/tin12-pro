@@ -1,280 +1,272 @@
-// ==========================================
-// Landing Page - Tin12 Pro Cánh Diều
-// Premium EdTech SaaS landing page
-// ==========================================
-
 'use client';
 
 import Link from 'next/link';
+import { LandingNav } from '@/components/landing/LandingNav';
 
-export default function HomePage() {
+const stats = [
+  ['5', 'khóa học', 'Nền tảng, CS, ICT, luyện thi, portfolio'],
+  ['21', 'bài học', 'Giải thích dễ hiểu, chuẩn kiến thức, deep dive'],
+  ['224', 'câu hỏi', 'MCQ, đúng/sai nhóm, code reading'],
+  ['8', 'labs', 'HTML/CSS, mạng, dữ liệu, project'],
+  ['100', 'flashcards', 'Spaced repetition theo chủ đề'],
+  ['194', 'tests pass', 'Engine học tập đã được kiểm thử'],
+];
+
+const tracks = [
+  ['Nền tảng chung', 'AI, mạng, đạo đức số, HTML/CSS, hướng nghiệp', '01'],
+  ['Khoa học máy tính', 'LAN, học máy, dữ liệu, mô phỏng, thuật toán', '02'],
+  ['Tin học ứng dụng', 'Thiết bị số, website, biểu mẫu, xuất bản web', '03'],
+  ['Luyện thi THPT', 'Đề 50 phút, câu đúng/sai, phân tích lỗi sai', '04'],
+  ['Portfolio CNTT', 'Website cá nhân, báo cáo dữ liệu, hồ sơ năng lực', '05'],
+];
+
+const proof = [
+  ['Chẩn đoán trước khi học', 'Placement test phân loại mất gốc, nền yếu, chuẩn thi hoặc nâng cao.'],
+  ['Học bằng cockpit', 'Dashboard gom việc hôm nay, mastery map, câu sai, lab và flashcards.'],
+  ['Thực hành thật', 'Lab có starter code, checklist, hint, rubric và live preview sandbox.'],
+  ['Thi thử có phân tích', 'Part 1, Part 2, timer, navigator, result analysis và lộ trình vá lỗi.'],
+];
+
+function ArrowIcon() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
-      {/* Navigation */}
-      <nav aria-label="Main navigation" className="fixed top-0 left-0 right-0 z-40 h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-700/80">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">T12</span>
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+    </svg>
+  );
+}
+
+function ProductConsole() {
+  return (
+    <div className="relative mx-auto w-full max-w-[520px] rounded-[2rem] border border-white/12 bg-[#101a2b]/92 p-4 shadow-[0_40px_120px_rgba(4,12,24,0.48)] backdrop-blur-xl">
+      <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.24em] text-[#9ab5ab]">Academy cockpit</p>
+          <p className="mt-1 text-lg font-bold text-white">Minh Anh, track THPT</p>
+        </div>
+        <div className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-3 py-1 text-xs font-semibold text-emerald-200">
+          84% sẵn sàng
+        </div>
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-3">
+        {[
+          ['Streak', '14', '+2 ngày'],
+          ['XP tuần', '2,450', '+360 XP'],
+          ['Đề gần nhất', '8.2', '+0.5 điểm'],
+        ].map(([label, value, sub]) => (
+          <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+            <p className="text-xs text-[#9ab5ab]">{label}</p>
+            <p className="mt-2 text-2xl font-black text-white">{value}</p>
+            <p className="mt-1 text-xs text-emerald-200">{sub}</p>
           </div>
-          <span className="font-semibold text-slate-900 dark:text-white">Tin12 Pro</span>
-        </div>
+        ))}
+      </div>
 
-        <div className="hidden md:flex items-center gap-6">
-          <Link href="/courses" className="text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600">Khóa học</Link>
-          <Link href="/ai-tutor" className="text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600">AI Tutor</Link>
-          <Link href="/exams" className="text-sm text-slate-600 dark:text-slate-300 hover:text-blue-600">Thi thử</Link>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <Link
-            href="/onboarding"
-            className="h-9 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-full flex items-center"
-          >
-            Bắt đầu ngay
-          </Link>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="animate-slide-up">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-full text-blue-700 dark:text-blue-300 text-sm font-medium mb-6">
-                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                Đã có hơn 10,000+ học sinh tin tưởng
-              </div>
-              
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white leading-tight">
-                Từ <span className="text-blue-600 dark:text-blue-400">mất gốc</span> Tin học 12
-                <br />
-                đến <span className="text-violet-600 dark:text-violet-400">làm chủ</span> kiến thức
-              </h1>
-              
-              <p className="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
-                Tin12 Pro Cánh Diều - Nền tảng học tập thông minh với lộ trình cá nhân hóa, 
-                AI Tutor hỗ trợ 24/7 và ngân hàng câu hỏi phong phú giúp bạn tự tin bước vào kỳ thi THPT.
-              </p>
-
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/onboarding"
-                  className="h-12 px-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all"
-                >
-                  Bắt đầu học miễn phí
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/courses"
-                  className="h-12 px-6 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-xl flex items-center justify-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
-                >
-                  Khám phá khóa học
-                </Link>
-              </div>
-
-              <div className="mt-10 flex items-center gap-8 text-sm text-slate-500 dark:text-slate-400">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Học miễn phí</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Không cần thẻ</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Học mọi lúc</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-violet-600/20 blur-3xl rounded-full"></div>
-              <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-6 border border-slate-200 dark:border-slate-700 animate-fade-in">
-                {/* Mock dashboard preview */}
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                  <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                        <span className="text-lg">📚</span>
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-slate-900 dark:text-white">Kiến trúc máy tính</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400">Bài 1 • 45 phút</p>
-                      </div>
-                    </div>
-                    <span className="px-2 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium rounded-full">Hoàn thành</span>
-                  </div>
-
-                  <div className="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                    <div className="h-full w-3/4 bg-gradient-to-r from-blue-600 to-violet-600 rounded-full"></div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-3 text-center">
-                      <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">85%</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">Điểm TB</p>
-                    </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-3 text-center">
-                      <p className="text-2xl font-bold text-violet-600 dark:text-violet-400">7</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">Ngày streak</p>
-                    </div>
-                    <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-3 text-center">
-                      <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">156</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">XP</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="mt-3 grid gap-3 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="font-semibold text-white">Việc nên làm hôm nay</p>
+            <span className="text-xs text-[#9ab5ab]">42 phút</span>
           </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-              Tại sao chọn Tin12 Pro?
-            </h2>
-            <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-              Nền tảng EdTech được thiết kế riêng cho chương trình Tin học 12 Cánh Diều
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
-            {FEATURES.map((feature, index) => (
-              <div
-                key={index}
-                className="group bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
-              >
-                <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  {feature.icon}
+          <div className="space-y-3">
+            {[
+              ['Ôn CSS layout', 'Vì mastery CSS còn 58%'],
+              ['10 câu mạng LAN', 'Sai nhiều router/switch'],
+              ['Lab portfolio card', 'Chuyển lý thuyết thành kỹ năng'],
+            ].map(([title, sub], index) => (
+              <div key={title} className="flex gap-3 rounded-xl bg-[#0b1220]/60 p-3">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-white/10 text-xs font-bold text-emerald-200">
+                  {index + 1}
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-white">{title}</p>
+                  <p className="text-xs text-[#9ab5ab]">{sub}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {STATS.map((stat, index) => (
-              <div key={index} className="text-center">
-                <p className="text-4xl sm:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                  {stat.value}
-                </p>
-                <p className="text-slate-600 dark:text-slate-300">{stat.label}</p>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+          <p className="mb-4 font-semibold text-white">Mastery map</p>
+          {[
+            ['HTML/CSS', 76],
+            ['Mạng', 49],
+            ['AI', 68],
+            ['Đạo đức số', 83],
+          ].map(([topic, score]) => (
+            <div key={topic} className="mb-4 last:mb-0">
+              <div className="mb-1 flex justify-between text-xs">
+                <span className="text-[#cbd5d0]">{topic}</span>
+                <span className="font-semibold text-white">{score}%</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-blue-600 to-violet-600 rounded-3xl p-12 text-white">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Sẵn sàng bắt đầu hành trình?
-            </h2>
-            <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-              Đăng ký ngay hôm nay và nhận lộ trình học tập cá nhân hóa, 
-              hoàn toàn miễn phí cho học sinh Việt Nam.
-            </p>
-            <Link
-              href="/onboarding"
-              className="inline-flex h-12 px-8 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
-            >
-              Bắt đầu ngay - Hoàn toàn miễn phí
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-700">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-violet-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">T12</span>
+              <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full rounded-full bg-gradient-to-r from-[#0f766e] to-[#f2c078]" style={{ width: `${score}%` }} />
+              </div>
             </div>
-            <span className="font-semibold text-slate-900 dark:text-white">Tin12 Pro Cánh Diều</span>
-          </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            © 2024 Tin12 Pro. All rights reserved.
-          </p>
+          ))}
         </div>
-      </footer>
+      </div>
+
+      <div className="mt-3 rounded-2xl border border-amber-200/20 bg-amber-200/10 p-4">
+        <p className="text-xs uppercase tracking-[0.18em] text-amber-100/80">AI Tutor</p>
+        <p className="mt-2 text-sm leading-relaxed text-white">
+          Em đang nhầm router với switch. Hãy nhớ: switch nối thiết bị trong LAN, router nối các mạng khác nhau.
+        </p>
+      </div>
     </div>
   );
 }
 
-const FEATURES = [
-  {
-    title: 'Lộ trình cá nhân hóa',
-    description: 'AI phân tích năng lực và đề xuất lộ trình học tập phù hợp với mục tiêu của bạn.',
-    icon: <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
-    color: 'bg-blue-600',
-  },
-  {
-    title: 'AI Tutor 24/7',
-    description: 'Gia sư AI hỗ trợ giải đáp thắc mắc mọi lúc, giúp bạn hiểu sâu thay vì chỉ có đáp án.',
-    icon: <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>,
-    color: 'bg-violet-600',
-  },
-  {
-    title: 'Ngân hàng 500+ câu hỏi',
-    description: 'Câu hỏi đa dạng theo cấu trúc đề thi THPT, có giải thích chi tiết từng đáp án.',
-    icon: <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
-    color: 'bg-emerald-600',
-  },
-  {
-    title: 'Luyện thi sát thực tế',
-    description: 'Thi thử với đề mô phỏng 50 phút, cấu trúc y hệt kỳ thi tốt nghiệp THPT.',
-    icon: <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
-    color: 'bg-amber-500',
-  },
-  {
-    title: 'Flashcards thông minh',
-    description: 'Hệ thống spaced repetition giúp bạn nhớ lâu hơn với 100+ flashcards theo chủ đề.',
-    icon: <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>,
-    color: 'bg-cyan-600',
-  },
-  {
-    title: 'Theo dõi tiến độ',
-    description: 'Dashboard trực quan hiển thị điểm mạnh/yếu, streak học tập và XP leveling.',
-    icon: <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>,
-    color: 'bg-pink-600',
-  },
-];
+export default function LandingPage() {
+  return (
+    <main className="min-h-[100dvh] overflow-x-hidden bg-[#f7f4ec] text-[#0b1220]">
+      <LandingNav />
 
-const STATS = [
-  { value: '10,000+', label: 'Học sinh đang học' },
-  { value: '500+', label: 'Câu hỏi trong ngân hàng' },
-  { value: '50+', label: 'Bài học video' },
-  { value: '95%', label: 'Học sinh cải thiện điểm số' },
-];
+      <section className="relative bg-[#0b1220] px-6 pb-24 pt-32 text-white sm:px-8 lg:px-10 lg:pb-32 lg:pt-40">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(15,118,110,0.28),transparent_34%),radial-gradient(circle_at_82%_12%,rgba(217,119,6,0.18),transparent_30%)]" />
+        <div className="relative mx-auto grid max-w-[1200px] gap-14 lg:grid-cols-[1.04fr_0.96fr] lg:items-center">
+          <div className="max-w-[680px]">
+            <div className="mb-7 inline-flex rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-[#cbd5d0] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+              Tin học 12 Cánh Diều, từ mất gốc đến sẵn sàng thi
+            </div>
+            <h1 className="text-5xl font-black tracking-[-0.055em] text-white sm:text-6xl lg:text-7xl">
+              Học Tin 12 như một nền tảng luyện thi cao cấp.
+            </h1>
+            <p className="mt-7 max-w-[61ch] text-lg leading-8 text-[#cbd5d0] sm:text-xl">
+              Tin12 Pro gom lộ trình cá nhân hóa, bài học dễ hiểu, lab HTML/CSS, đề 50 phút, flashcards và AI Tutor vào một cockpit học tập duy nhất.
+            </p>
+
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href="/onboarding" className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#f7f4ec] px-7 text-base font-black text-[#0b1220] shadow-[0_18px_55px_rgba(247,244,236,0.22)] transition-transform hover:scale-[1.02] active:scale-[0.98]">
+                Kiểm tra trình độ miễn phí
+                <ArrowIcon />
+              </Link>
+              <Link href="/dashboard" className="inline-flex h-13 items-center justify-center rounded-full border border-white/14 bg-white/[0.04] px-7 text-base font-bold text-white transition-colors hover:bg-white/10">
+                Xem cockpit học tập
+              </Link>
+            </div>
+
+            <div className="mt-9 grid gap-3 text-sm text-[#cbd5d0] sm:grid-cols-3">
+              {['Không cần thẻ', 'Có dữ liệu mẫu thật', 'Thi thử 50 phút'].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-emerald-300/10 text-emerald-200"><CheckIcon /></span>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <ProductConsole />
+        </div>
+      </section>
+
+      <section className="px-6 py-14 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-[1200px] gap-4 sm:grid-cols-2 lg:grid-cols-6">
+          {stats.map(([value, label, sub]) => (
+            <div key={label} className="rounded-[1.75rem] border border-[#d8d2c5] bg-white/70 p-5 shadow-[0_18px_55px_rgba(11,18,32,0.06)]">
+              <p className="text-4xl font-black tracking-tight text-[#0f766e]">{value}</p>
+              <p className="mt-2 font-bold text-[#0b1220]">{label}</p>
+              <p className="mt-1 text-xs leading-5 text-[#64716b]">{sub}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-6 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="mb-10 max-w-3xl">
+            <p className="text-sm font-black uppercase tracking-[0.24em] text-[#0f766e]">Learning architecture</p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">Không phải blog tài liệu. Đây là hệ thống học có dữ liệu.</h2>
+            <p className="mt-4 text-lg leading-8 text-[#5d6761]">Mỗi buổi học có mục tiêu, bài đọc, quiz, lab, câu thi, flashcard và đề xuất tiếp theo dựa trên mastery.</p>
+          </div>
+          <div className="grid gap-5 lg:grid-cols-4">
+            {proof.map(([title, desc], index) => (
+              <div key={title} className={`rounded-[2rem] border p-6 ${index === 0 ? 'border-[#0f766e]/30 bg-[#0f766e] text-white lg:col-span-2' : 'border-[#d8d2c5] bg-white/75 text-[#0b1220]'}`}>
+                <span className={`mb-10 inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-black ${index === 0 ? 'bg-white/12 text-white' : 'bg-[#0b1220] text-white'}`}>{String(index + 1).padStart(2, '0')}</span>
+                <h3 className="text-xl font-black tracking-tight">{title}</h3>
+                <p className={`mt-3 leading-7 ${index === 0 ? 'text-emerald-50' : 'text-[#5d6761]'}`}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0b1220] px-6 py-24 text-white sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-[1200px] gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.24em] text-[#f2c078]">Roadmap</p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">Từ nền tảng đến portfolio CNTT.</h2>
+            <p className="mt-5 text-lg leading-8 text-[#cbd5d0]">Học đủ phần chung, chọn nhánh CS hoặc ICT, luyện đề theo cấu trúc và kết thúc bằng sản phẩm có thể đưa vào hồ sơ cá nhân.</p>
+            <Link href="/courses" className="mt-8 inline-flex h-12 items-center gap-2 rounded-full bg-[#f7f4ec] px-6 font-black text-[#0b1220]">
+              Khám phá khóa học
+              <ArrowIcon />
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {tracks.map(([title, desc, number]) => (
+              <div key={title} className="rounded-[1.75rem] border border-white/10 bg-white/[0.055] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                <div className="mb-8 flex items-center justify-between">
+                  <span className="text-xs font-black tracking-[0.2em] text-[#9ab5ab]">TRACK</span>
+                  <span className="text-sm font-black text-[#f2c078]">{number}</span>
+                </div>
+                <h3 className="text-xl font-black">{title}</h3>
+                <p className="mt-3 leading-7 text-[#cbd5d0]">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 py-24 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-[1fr_0.72fr] lg:items-center">
+          <div className="rounded-[2.5rem] border border-[#d8d2c5] bg-white p-6 shadow-[0_24px_90px_rgba(11,18,32,0.08)] sm:p-8">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                ['Đề thi 50 phút', '24 câu trắc nghiệm, 6 nhóm đúng/sai, có timer và navigator.'],
+                ['Lab workspace', 'Đề bài, checklist, hint, editor, preview và rubric trong một màn hình.'],
+                ['Mistake analytics', 'Phân loại lỗi sai theo chủ đề, dạng bẫy, tốc độ và độ khó.'],
+                ['AI Tutor guardrails', 'Gợi ý từng bước khi đang làm bài, không đưa đáp án ngay.'],
+              ].map(([title, desc]) => (
+                <div key={title} className="rounded-[1.75rem] bg-[#f7f4ec] p-5">
+                  <p className="font-black text-[#0b1220]">{title}</p>
+                  <p className="mt-2 text-sm leading-6 text-[#5d6761]">{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.24em] text-[#0f766e]">Practice proof</p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">Thi thật trước khi thi thật.</h2>
+            <p className="mt-5 text-lg leading-8 text-[#5d6761]">Không chỉ học thuộc. Học sinh luyện đề, làm lab, xem lỗi sai và nhận lộ trình vá lỗi theo dữ liệu của chính mình.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-6 pb-24 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-[1000px] rounded-[2.5rem] bg-[#0f766e] p-8 text-center text-white shadow-[0_32px_110px_rgba(15,118,110,0.28)] sm:p-12">
+          <p className="text-sm font-black uppercase tracking-[0.24em] text-emerald-100">Start now</p>
+          <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">Bắt đầu bằng bài test 5 phút.</h2>
+          <p className="mx-auto mt-5 max-w-[62ch] text-lg leading-8 text-emerald-50">Hệ thống sẽ phân loại trình độ, chọn track phù hợp và tạo kế hoạch học hôm nay. Không cần thẻ, không cần cấu hình.</p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/onboarding" className="inline-flex h-13 items-center justify-center gap-2 rounded-full bg-[#f7f4ec] px-8 font-black text-[#0b1220]">
+              Kiểm tra trình độ miễn phí
+              <ArrowIcon />
+            </Link>
+            <Link href="/pricing" className="inline-flex h-13 items-center justify-center rounded-full border border-white/20 px-8 font-bold text-white hover:bg-white/10">
+              Xem gói học
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

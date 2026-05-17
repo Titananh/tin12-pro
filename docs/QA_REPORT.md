@@ -1,7 +1,7 @@
 # QA Report - Build/TypeScript/Test Verification
 
-## Verification Date: 2026-05-16
-## Agent: Final Integration QA + Build Repair Lead
+## Verification Date: 2026-05-17
+## Agent: Academy Cockpit Redesign QA
 
 ---
 
@@ -13,6 +13,7 @@
 | `npm run lint` | ✅ PASS | 0 errors, 0 warnings |
 | `npm run typecheck` | ✅ PASS | TypeScript type checking passes |
 | `npm test` | ✅ PASS | 194/194 tests passing |
+| Visual overflow audit | ✅ PASS | Desktop and mobile checks passed across 23 UI routes |
 
 ---
 
@@ -133,9 +134,18 @@ Route (app)
 - Added deterministic tutor functions for explanations, similar questions, mistake analysis, and study plans
 - Added `/api/ai/chat` as the blueprint-compatible AI chat endpoint
 
+### 11. Academy Cockpit redesign QA
+- Removed the global margin/padding reset that was overriding Tailwind spacing utilities
+- Fixed landing hero/nav clipping and verified desktop/mobile screenshots
+- Fixed mobile horizontal overflow in dashboard, lab workspace, admin, reports, and portfolio routes
+- Removed emoji-based UI labels/icons from rendered routes and seed data used by the interface
+- Fixed admin hydration mismatch caused by client-local CMS counts differing from pre-rendered HTML
+
 ---
 
 ## Routes Verified
+
+Desktop and mobile visual overflow checks were run for the main UI routes below.
 
 | Route | Type | Status |
 |-------|------|--------|

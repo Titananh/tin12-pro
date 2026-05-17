@@ -94,6 +94,7 @@ export interface LessonContent {
   sixtySecondSummary: string;
   flashcards: string[]; // IDs of related flashcards
   nextStep: string;
+  keyTerms?: string[]; // optional glossary terms
 }
 
 export interface QuickCheckQuestion {

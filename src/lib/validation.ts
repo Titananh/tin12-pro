@@ -79,7 +79,7 @@ export const createCourseSchema = z.object({
   title: z.string().min(1, 'Tiêu đề không được trống').max(200),
   description: z.string().max(1000).optional().default(''),
   slug: z.string().min(1).max(100).optional(),
-  icon: z.string().max(20).optional().default('📚'),
+  icon: z.string().max(20).optional().default('BOOK'),
   track: z.enum(['CS', 'ICT', 'GENERAL']).default('GENERAL'),
   difficulty: z.enum(['EASY', 'MEDIUM', 'HARD']).default('MEDIUM'),
   estimatedHours: z.number().min(1).max(500).optional().default(20),

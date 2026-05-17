@@ -65,14 +65,14 @@ export const mockMasteryMap: MasteryMap[] = [
 
 // ============ BADGES ============
 export const mockBadges: Badge[] = [
-  { id: 'first-lesson', name: 'Khởi đầu', description: 'Hoàn thành bài học đầu tiên', icon: '🎯', criteria: 'Hoàn thành 1 bài học', xpReward: 50 },
-  { id: 'streak-3', name: '3 ngày liên tiếp', description: 'Học liên tục 3 ngày', icon: '🔥', criteria: 'Streak 3 ngày', xpReward: 100 },
-  { id: 'perfect-quiz', name: 'Hoàn hảo', description: 'Đạt 100% trong quiz', icon: '💯', criteria: 'Quiz điểm tối đa', xpReward: 150 },
-  { id: 'early-bird', name: 'Người đi sớm', description: 'Học trước 7h sáng', icon: '🌅', criteria: 'Học trước 7h', xpReward: 75 },
-  { id: 'speed-demon', name: 'Thần tốc', description: 'Hoàn thành bài thi trước 30 phút', icon: '⚡', criteria: 'Nộp sớm trong exam', xpReward: 100 },
-  { id: 'bookworm', name: 'Sách vở', description: 'Hoàn thành 10 bài học', icon: '📚', criteria: '10 lessons completed', xpReward: 200 },
-  { id: 'lab-star', name: 'Ngôi sao Lab', description: 'Hoàn thành 5 labs', icon: '🔬', criteria: '5 labs completed', xpReward: 250 },
-  { id: 'master-mind', name: 'Bậc thầy', description: 'Đạt 90% mastery trong 1 topic', icon: '🧠', criteria: 'Topic mastery 90%+', xpReward: 300 },
+  { id: 'first-lesson', name: 'Khởi đầu', description: 'Hoàn thành bài học đầu tiên', icon: 'GO', criteria: 'Hoàn thành 1 bài học', xpReward: 50 },
+  { id: 'streak-3', name: '3 ngày liên tiếp', description: 'Học liên tục 3 ngày', icon: 'S3', criteria: 'Streak 3 ngày', xpReward: 100 },
+  { id: 'perfect-quiz', name: 'Hoàn hảo', description: 'Đạt 100% trong quiz', icon: '100', criteria: 'Quiz điểm tối đa', xpReward: 150 },
+  { id: 'early-bird', name: 'Người đi sớm', description: 'Học trước 7h sáng', icon: 'AM', criteria: 'Học trước 7h', xpReward: 75 },
+  { id: 'speed-demon', name: 'Thần tốc', description: 'Hoàn thành bài thi trước 30 phút', icon: 'FAST', criteria: 'Nộp sớm trong exam', xpReward: 100 },
+  { id: 'bookworm', name: 'Sách vở', description: 'Hoàn thành 10 bài học', icon: 'BOOK', criteria: '10 lessons completed', xpReward: 200 },
+  { id: 'lab-star', name: 'Ngôi sao Lab', description: 'Hoàn thành 5 labs', icon: 'LAB', criteria: '5 labs completed', xpReward: 250 },
+  { id: 'master-mind', name: 'Bậc thầy', description: 'Đạt 90% mastery trong 1 topic', icon: '90+', criteria: 'Topic mastery 90%+', xpReward: 300 },
 ];
 
 // ============ FLASHCARDS MOCK ============
@@ -545,16 +545,16 @@ export const mockLearningPaths: Record<LearningPathGoal, LearningPath[]> = {
 
 // ============ XP LEVELING INFO ============
 export const XP_LEVELS = [
-  { level: 1, minXP: 0, title: 'Tân binh', icon: '🎯' },
-  { level: 2, minXP: 100, title: 'Người học', icon: '📖' },
-  { level: 3, minXP: 250, title: 'Học sinh', icon: '✏️' },
-  { level: 4, minXP: 500, title: 'Học sinh chăm chỉ', icon: '📚' },
-  { level: 5, minXP: 800, title: 'Học sinh năng động', icon: '⚡' },
-  { level: 6, minXP: 1200, title: 'Học sinh tiên tiến', icon: '🚀' },
-  { level: 7, minXP: 1700, title: 'Học sinh giỏi', icon: '🌟' },
-  { level: 8, minXP: 2300, title: 'Học sinh xuất sắc', icon: '💫' },
-  { level: 9, minXP: 3000, title: 'Chuyên gia', icon: '🎓' },
-  { level: 10, minXP: 4000, title: 'Bậc thầy', icon: '👑' },
+  { level: 1, minXP: 0, title: 'Tân binh', icon: 'L1' },
+  { level: 2, minXP: 100, title: 'Người học', icon: 'L2' },
+  { level: 3, minXP: 250, title: 'Học sinh', icon: 'L3' },
+  { level: 4, minXP: 500, title: 'Học sinh chăm chỉ', icon: 'L4' },
+  { level: 5, minXP: 800, title: 'Học sinh năng động', icon: 'L5' },
+  { level: 6, minXP: 1200, title: 'Học sinh tiên tiến', icon: 'L6' },
+  { level: 7, minXP: 1700, title: 'Học sinh giỏi', icon: 'L7' },
+  { level: 8, minXP: 2300, title: 'Học sinh xuất sắc', icon: 'L8' },
+  { level: 9, minXP: 3000, title: 'Chuyên gia', icon: 'L9' },
+  { level: 10, minXP: 4000, title: 'Bậc thầy', icon: 'L10' },
 ];
 
 export const XP_RULES = {

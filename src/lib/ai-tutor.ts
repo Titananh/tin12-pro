@@ -337,7 +337,7 @@ export function generateTutorResponse(
   // Handle greeting
   if (isGreeting(userMessage)) {
     return {
-      message: `Chào bạn! 👋 Mình là gia sư Tin học 12 Cánh Diều.\n\n` +
+      message: `Chào bạn! Mình là gia sư Tin học 12 Cánh Diều.\n\n` +
         `Mình có thể giúp bạn:\n` +
         `- Giải thích khái niệm AI, Mạng, HTML/CSS, Đạo đức số...\n` +
         `- Gợi ý cách làm bài thi\n` +

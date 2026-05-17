@@ -1,11 +1,18 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const geist = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b1220",
+};
 
 export const metadata: Metadata = {
   title: "Tin12 Pro Cánh Diều | Từ mất gốc Tin học 12 đến làm chủ lý thuyết",
@@ -20,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans antialiased h-full`}>
+      <body className={`${geist.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>
