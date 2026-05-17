@@ -1,0 +1,28 @@
+# ===========================================
+# Docker Compose - Optional Postgres for future backend
+# Usage: docker compose up -d
+# Note: MVP uses localStorage; this is for future Prisma/Postgres backend
+# ===========================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tin12-pro-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tin12pro
+      POSTGRES_PASSWORD: tin12pro_dev
+      POSTGRES_DB: tin12pro
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tin12pro -d tin12pro"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local

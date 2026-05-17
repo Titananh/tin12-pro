@@ -1,0 +1,391 @@
+// ==========================================
+// Prisma Schema for Tin12 Pro Cánh Diều
+// Full data model following blueprint
+// ==========================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============ ENUMS ============
+
+enum UserRole {
+  STUDENT
+  TEACHER
+  ADMIN
+}
+
+enum Track {
+  CS
+  ICT
+  GENERAL
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum QuestionType {
+  MCQ
+  TRUE_FALSE
+}
+
+enum LabType {
+  HTML_CSS
+  NETWORK
+  DATA
+  PROJECT
+}
+
+enum ExamStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum LabSubmissionStatus {
+  DRAFT
+  SUBMITTED
+  GRADED
+}
+
+// ============ USER & AUTH ============
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String?
+  name          String
+  role          UserRole  @default(STUDENT)
+  avatar        String?
+  track         Track     @default(GENERAL)
+  xp            Int       @default(0)
+  level         Int       @default(1)
+  streak        Int       @default(0)
+  goals         String    @default("[]") // JSON array
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Auth tokens
+  sessions      Session[]
+
+  // Progress
+  enrollments       ClassEnrollment[]
+  lessonProgress    LessonProgress[]
+  quizScores        QuizScore[]
+  examAttempts      ExamAttempt[]
+  labSubmissions    LabSubmission[]
+  flashcardProgress FlashcardProgress[]
+  
+  // Teacher references
+  taughtClasses     Class[]         @relation("TeacherClasses")
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// ============ PROFILE ============
+
+model Profile {
+  id          String  @id @default(cuid())
+  userId      String  @unique
+  bio         String?
+  preferences String  @default("{}") // JSON
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+// ============ COURSE & LESSON ============
+
+model Course {
+  id             String     @id @default(cuid())
+  slug           String     @unique
+  title          String
+  description    String
+  icon           String
+  track          Track
+  difficulty     Difficulty @default(MEDIUM)
+  estimatedHours Int        @default(20)
+  color          String     @default("#2563EB")
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  modules  Module[]
+  enrollments ClassEnrollment[]
+
+  @@map("courses")
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  courseId    String
+  title       String
+  description String
+  order       Int
+
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons Lesson[]
+
+  @@map("modules")
+}
+
+model Lesson {
+  id               String   @id @default(cuid())
+  moduleId         String
+  slug             String   @unique
+  title            String
+  description      String
+  estimatedMinutes Int      @default(45)
+  difficulty       Difficulty @default(MEDIUM)
+  track            Track    @default(GENERAL)
+  order            Int
+
+  // Full content stored as JSON
+  content          String   @default("{}") // LessonContent JSON
+
+  module   Module            @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  progress LessonProgress[]
+  
+  // Relation to questions
+  questions Question[]
+
+  @@map("lessons")
+}
+
+// ============ QUESTION BANK ============
+
+model Question {
+  id           String       @id @default(cuid())
+  type         QuestionType
+  question     String
+  options      String?      // JSON array for MCQ
+  statements   String?      // JSON array for T/F
+  correctAnswer String      // JSON - number or boolean array
+  explanation   String
+  difficulty    Difficulty   @default(MEDIUM)
+  topic        String
+  lessonId     String?      // Optional link to lesson
+
+  lesson   Lesson?  @relation(fields: [lessonId], references: [id], onDelete: SetNull)
+  attempts QuestionAttempt[]
+
+  @@map("questions")
+}
+
+// ============ EXAM ============
+
+model Exam {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  duration    Int      @default(50) // minutes
+  part1Config String   @default("{}") // JSON: totalQuestions, pointsEach
+  part2Config String   @default("{}") // JSON: totalQuestions, pointsEach
+  createdAt   DateTime @default(now())
+
+  attempts ExamAttempt[]
+
+  @@map("exams")
+}
+
+model ExamAttempt {
+  id          String      @id @default(cuid())
+  userId      String
+  examId      String
+  startedAt   DateTime    @default(now())
+  completedAt DateTime?
+  score       Float?
+  part1Score  Float?
+  part2Score  Float?
+  timeSpent   Int?        // seconds
+  
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exam    Exam        @relation(fields: [examId], references: [id], onDelete: Cascade)
+  answers QuestionAttempt[]
+
+  @@map("exam_attempts")
+}
+
+// ============ QUESTION ATTEMPT (for exams & quizzes) ============
+
+model QuestionAttempt {
+  id              String   @id @default(cuid())
+  userId          String
+  questionId      String
+  examAttemptId   String?  // null for practice quizzes
+  quizId          String?  // null for exam attempts
+  userAnswer      String   // JSON - number or boolean array
+  isCorrect       Boolean
+  timeSpent       Int?     // seconds
+  answeredAt      DateTime @default(now())
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question    Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  examAttempt ExamAttempt? @relation(fields: [examAttemptId], references: [id], onDelete: SetNull)
+
+  @@map("question_attempts")
+}
+
+// ============ PROGRESS ============
+
+model LessonProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  lessonId    String
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+  timeSpent   Int?     // minutes
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@map("lesson_progress")
+}
+
+model QuizScore {
+  id              String   @id @default(cuid())
+  userId          String
+  quizId          String   // virtual quiz from lesson or standalone
+  score           Float
+  totalQuestions  Int
+  completedAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_scores")
+}
+
+// ============ CLASS (for teachers) ============
+
+model Class {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  teacherId   String
+  createdAt   DateTime @default(now())
+
+  teacher    User             @relation("TeacherClasses", fields: [teacherId], references: [id], onDelete: Cascade)
+  enrollments ClassEnrollment[]
+
+  @@map("classes")
+}
+
+model ClassEnrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  classId   String
+  joinedAt  DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  class Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, classId])
+  @@map("class_enrollments")
+}
+
+// ============ ASSIGNMENT ============
+
+model Assignment {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  classId     String
+  dueDate     DateTime?
+  createdAt   DateTime @default(now())
+
+  @@map("assignments")
+}
+
+// ============ LAB ============
+
+model Lab {
+  id               String      @id @default(cuid())
+  slug             String      @unique
+  title            String
+  description      String
+  type             LabType     @default(HTML_CSS)
+  difficulty       Difficulty  @default(MEDIUM)
+  estimatedMinutes Int         @default(30)
+  starterCode      String?
+  solutionCode     String?
+  instructions     String      @default("[]") // JSON array
+  hints            String      @default("[]") // JSON array
+  rubric           String      @default("[]") // JSON array
+  createdAt        DateTime    @default(now())
+
+  submissions LabSubmission[]
+
+  @@map("labs")
+}
+
+model LabSubmission {
+  id          String             @id @default(cuid())
+  userId      String
+  labId       String
+  code        String
+  status      LabSubmissionStatus @default(DRAFT)
+  score       Float?
+  feedback    String?
+  submittedAt DateTime            @default(now())
+  gradedAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lab  Lab  @relation(fields: [labId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, labId])
+  @@map("lab_submissions")
+}
+
+// ============ FLASHCARD ============
+
+model Flashcard {
+  id       String     @id @default(cuid())
+  deckId   String
+  front    String
+  back     String
+  topic    String
+  difficulty Difficulty @default(MEDIUM)
+
+  progress FlashcardProgress[]
+
+  @@map("flashcards")
+}
+
+model FlashcardProgress {
+  id            String   @id @default(cuid())
+  userId        String
+  cardId        String
+  easeFactor    Float    @default(2.5)
+  interval      Int      @default(0)
+  repetitions   Int      @default(0)
+  nextReviewAt  DateTime @default(now())
+  lastReviewedAt DateTime?
+  reviewCount   Int      @default(0)
+
+  user User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  card Flashcard @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cardId])
+  @@map("flashcard_progress")
+}
